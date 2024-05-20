@@ -74,7 +74,7 @@ colnames(df_previsioni)[1]<-"ARIMA"
 
 ####################MIGLIOR UCM#####################################
 #Dataset per ucm
-#Poichè i modelli UCM sono modelli additivi è meglio fornire loro una serie stazionaria in varianza
+#PoichÃ¨ i modelli UCM sono modelli additivi Ã¨ meglio fornire loro una serie stazionaria in varianza
 #BoxCox transformation
 data<-BoxCox(dataset$CO, lambda = lambda)
 
