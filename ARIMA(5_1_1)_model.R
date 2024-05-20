@@ -36,18 +36,18 @@ test <- tms[-c(1:train_date),]
 
 plot(train)
 seasonplot(as.ts(train))
-#Presenza di stagionalità giornaliera e settimanale
+#Presenza di stagionalitÃ  giornaliera e settimanale
 
-#Avendo dati annuali non è possibile valutare la presenza di ciclicità legate al mese, anche se sembra evidente un calo di media e varianza da giugno ad agosto
+#Avendo dati annuali non Ã¨ possibile valutare la presenza di ciclicitÃ  legate al mese, anche se sembra evidente un calo di media e varianza da giugno ad agosto
 dec<-decompose(as.ts(train))
 plot(dec)
 #Non sembra presente un trend
 
-#Dal plot la serie non risulta stazionaria nè in media nè in varianza
+#Dal plot la serie non risulta stazionaria nÃ¨ in media nÃ¨ in varianza
 medie <- period.apply(train, endpoints(train, "days"), mean) 
 devst <- period.apply(train, endpoints(train, "days"), sd)
 plot(medie, devst, type="p")
-#Non risulta una relazione lineare tra media e deviazione standard di CO, la non stazionarietà in varianza non è risolvibile con trasformazione logaritmica
+#Non risulta una relazione lineare tra media e deviazione standard di CO, la non stazionarietÃ  in varianza non Ã¨ risolvibile con trasformazione logaritmica
 ltrain<-log(train)
 plot(ltrain)
 #La trasformazione logaritmica infatti non rende stazionaria in varianza la serie
@@ -68,7 +68,7 @@ summary(ur.df(bctrain, "none", 24, "AIC"))
 Acf(bctrain)
 Pacf(bctrain)
 
-#Differenzio ogni 24 per eliminare stagionalità
+#Differenzio ogni 24 per eliminare stagionalitÃ 
 sbctrain<-diff(bctrain, 24)
 sbctrain<-na.omit(sbctrain)
 plot(sbctrain)
@@ -77,7 +77,7 @@ plot(sbctrain)
 summary(ur.df(sbctrain, "none", 24, "AIC"))
 #Dal test rifiuto ipotesi nulla e serie risulta stazionaria
 
-#Differenziazione di ordine 1 per stazionarietà in media
+#Differenziazione di ordine 1 per stazionarietÃ  in media
 dsbctrain <- diff(sbctrain, 1)
 dsbctrain<-na.omit(dsbctrain)
 plot(dsbctrain)
@@ -114,7 +114,7 @@ mod2
 Acf(mod2$residuals, 96)
 Pacf(mod2$residuals, 96)
 
-#Proviamo anche Arima con stagionalità P=2, D=1, Q=0
+#Proviamo anche Arima con stagionalitÃ  P=2, D=1, Q=0
 #Modello SARIMA(5, 1, 1)(2, 1, 0)[24]
 mod3 <- Arima(train, c(5, 1, 1), list(order=c(2, 1, 0), period=24), lambda=lambda) 
 mod3
