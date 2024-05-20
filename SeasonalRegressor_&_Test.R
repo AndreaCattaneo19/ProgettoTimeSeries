@@ -36,7 +36,7 @@ pred_date<-seq(as.POSIXct("2004-12-19 23:00;00"), as.POSIXct("2005-02-28 23:00:0
 lambda<- -0.8999268
 bct<-BoxCox(train, lambda = lambda)
 
-#Costruisco sinusoidi per stagionalità (stagionalità settimanale con dati orari è 7*24=168. Quindi: S=168, j=S/2=168/2=84)
+#Costruisco sinusoidi per stagionalitÃ  (stagionalitÃ  settimanale con dati orari Ã¨ 7*24=168. Quindi: S=168, j=S/2=168/2=84)
 time<- 1:8526
 omegat<-outer(time, 1:8, )*2*pi/168 
 co<-cos(omegat)
@@ -46,7 +46,7 @@ si<-sin(omegat)
 #INFINE SI PREVEDE IL TEST SET E SI SCEGLIE IL MIGLIORE
 
 #MIGLIORE DI SARIMA: SARIMA(5,1,1)(1, 1, 2)[24] (IN BASE AD AICc)
-#Modello Arima con stagionalità P=1, D=1 e Q=3
+#Modello Arima con stagionalitÃ  P=1, D=1 e Q=3
 mod6 <- Arima(train, c(5, 1, 1), 
               list(order=c(1, 1, 2), period=24),
               lambda=lambda)
