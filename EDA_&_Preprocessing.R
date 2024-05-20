@@ -10,7 +10,7 @@ library(dplyr)
 dataset <- read_csv("Project_data_2021_2022 (TRAINSET).csv", col_types = cols(Date = col_character()))
 
 #Si osservano 3 colonne nel dataset: date, hour e CO
-#Date è di tipo character, mentre hour e CO sono di tipo numeric
+#Date Ã¨ di tipo character, mentre hour e CO sono di tipo numeric
 #Il dataset presenta 8562 righe
 #Parte da marzo 2004 e arriva a febbraio 2005
 
@@ -56,9 +56,9 @@ df$CO[is.na(df$CO)] <- 0
 plot(dataset$Time, dataset$CO, type="l", lwd=3, xlab="Time", ylab="CO")
 
 #Ordino giorni della settimana in df
-df$WDay<- factor(df$WDay, levels= c("lunedì", "martedì", 
-                                      "mercoledì", "giovedì", 
-                                      "venerdì", "sabato", "domenica"))
+df$WDay<- factor(df$WDay, levels= c("lunedÃ¬", "martedÃ¬", 
+                                      "mercoledÃ¬", "giovedÃ¬", 
+                                      "venerdÃ¬", "sabato", "domenica"))
 
 #Box plot per giorno della settimana
 ggplot(df, aes(x=WDay, y=CO, fill=WDay)) + 
@@ -77,8 +77,8 @@ ggplot(df, aes(x=Hour, y=CO, fill=Hour)) +
 #Plot andamento medio orario per giorno della settimana
 Hourly_mean_day<-aggregate(df$CO, by=list(df$Hour, df$WDay), FUN=mean)
 
-Hourly_mean_day$Group.2<- factor(Hourly_mean_day$Group.2, levels= c("lunedì", "martedì", "mercoledì", "giovedì", 
-                                                                    "venerdì", "sabato", "domenica"))
+Hourly_mean_day$Group.2<- factor(Hourly_mean_day$Group.2, levels= c("lunedÃ¬", "martedÃ¬", "mercoledÃ¬", "giovedÃ¬", 
+                                                                    "venerdÃ¬", "sabato", "domenica"))
 Hourly_mean_day<-Hourly_mean_day[order(Hourly_mean_day$Group.2), ]
 
 Hourly_mean_day$Group.1 <-as.numeric(Hourly_mean_day$Group.1)
@@ -87,7 +87,7 @@ ggplot(Hourly_mean_day, aes(Group.1, x, col=Group.2))+
   geom_line() + scale_color_brewer(palette="Dark2")+
   labs(y= "CO", x = "Hour")
 
-#Plot andamento mensile (non è ordine di ts ma quello di mesi)
+#Plot andamento mensile (non Ã¨ ordine di ts ma quello di mesi)
 #Box plot per mese
 ggplot(df, aes(x=Month, y=CO, fill=Month)) + 
   geom_boxplot(alpha=0.3) +
@@ -102,16 +102,16 @@ ggplot(df, aes(x=Year, y=CO, fill=Year)) +
 
 #Correzione dei dati nulli
 #Dall'esplorazione si intuisce che esistono differenze negli andamenti orari, giornalieri e mensili
-#Pertanto si è deciso di rimpiazzare ciascun nullo con la media delle rilevazioni di CO 
+#Pertanto si Ã¨ deciso di rimpiazzare ciascun nullo con la media delle rilevazioni di CO 
 #alla stessa ora nello stesso giorno della settimana precedente e successiva
-#se una delle due rilevazioni dovesse essere assente si utilizzerà il valore dell'unica osservazione non nulla
+#se una delle due rilevazioni dovesse essere assente si utilizzerÃ  il valore dell'unica osservazione non nulla
 
 null_data <- subset(dataset, is.na(CO))
 null_data$Date <- as.Date(null_data$Date, "%Y-%m-%d")
 null_data$Hour <- as.character((null_data$Hour))
 
 #I valori mancanti sono distribuiti su tutto il dataset
-#A volte mancano i valori delle rilevazioni orarie per un giorno intero o per più giorni consecutivi
+#A volte mancano i valori delle rilevazioni orarie per un giorno intero o per piÃ¹ giorni consecutivi
 #altre mancano le rilevazioni per alcune ore in un singolo giorno.
 #Potrei rimpiazzare i valori mancanti facendo la media tra i valori dello stesso giorno della settimana precedente e di quella successiva
 #Per ogni valore nullo voglio:
@@ -136,7 +136,7 @@ after_null<-after_null[,-5]
 after_null$CO.x<-after_null$CO.x[is.na(after_null$CO.x)]<-0
 #Funzione media_nulli:
 #dato un valore nullo prende li valore 7 giorni prima e 7 giorni dopo alla stessa ora e ne fa la media
-#se uno dei due valori con cui fare la media è anch'esso nullo prende il secondo valore
+#se uno dei due valori con cui fare la media Ã¨ anch'esso nullo prende il secondo valore
 media_nulli <- function(before, after){
   m<-vector(mode="numeric", length=0)
   for (i in 1:length(before)){
@@ -174,7 +174,7 @@ dataset[6938,]
 which(dataset$Date=='2004-12-17' & dataset$Hour==19)
 dataset[6770,]
 dataset[6938,3]<-dataset[6770,3]
-#controllo che non ci siano più nulli nel dataset
+#controllo che non ci siano piÃ¹ nulli nel dataset
 which(is.na(dataset$CO))
 dataset$Time<-dataset$Time.x
 dataset<-dataset[,-4]
@@ -191,9 +191,9 @@ noNA_df$Year <- format(noNA_df$Time, "%Y")
 noNA_df$Day <- format(noNA_df$Time, "%d")
 noNA_df$Hour <- format(noNA_df$Time, "%H")
 noNA_df$WDay <- weekdays(noNA_df$Time)
-noNA_df$WDay<- factor(df$WDay, levels= c("lunedì", "martedì", 
-                                    "mercoledì", "giovedì", 
-                                    "venerdì", "sabato", "domenica"))
+noNA_df$WDay<- factor(df$WDay, levels= c("lunedÃ¬", "martedÃ¬", 
+                                    "mercoledÃ¬", "giovedÃ¬", 
+                                    "venerdÃ¬", "sabato", "domenica"))
 
 #Box plot per giorno della settimana
 ggplot(noNA_df, aes(x=WDay, y=CO, fill=WDay)) + 
@@ -216,8 +216,8 @@ ggplot(noNA_df, aes(x=Hour, y=CO, fill=Hour)) +
 
 noNA_Hourly_mean_day<-aggregate(noNA_df$CO, by=list(noNA_df$Hour, noNA_df$WDay), FUN=mean)
 
-noNA_Hourly_mean_day$Group.2<- factor(noNA_Hourly_mean_day$Group.2, levels= c("lunedì", "martedì", "mercoledì", "giovedì", 
-                                                                    "venerdì", "sabato", "domenica"))
+noNA_Hourly_mean_day$Group.2<- factor(noNA_Hourly_mean_day$Group.2, levels= c("lunedÃ¬", "martedÃ¬", "mercoledÃ¬", "giovedÃ¬", 
+                                                                    "venerdÃ¬", "sabato", "domenica"))
 noNA_Hourly_mean_day<-noNA_Hourly_mean_day[order(noNA_Hourly_mean_day$Group.2), ]
 
 noNA_Hourly_mean_day$Group.1 <-as.numeric(noNA_Hourly_mean_day$Group.1)
